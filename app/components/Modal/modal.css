@@ -1,0 +1,90 @@
+.background {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: rgba(189, 189, 189, 0.9);
+}
+
+.modal {
+  position: fixed;
+  max-width: 30rem;
+  width: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+
+  @media (max-width: 760px) {
+    width: 300px;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & h1 {
+      font-size: 23px;
+      color: #bc9c56;
+    }
+
+    & button {
+      background: #bc9c56;
+      padding: 0 7px;
+      border-radius: 50%;
+    }
+  }
+
+  & form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    & input {
+      margin-top: 5px;
+      padding: 5px;
+      width: 280px;
+      border: #bc9c56 solid 2px;
+      border-radius: 5px;
+    }
+
+    & select {
+      margin-top: 5px;
+      padding: 5px;
+      width: 280px;
+      border: #bc9c56 solid 2px;
+      border-radius: 5px;
+    }
+
+    & textarea {
+      margin-top: 5px;
+      padding: 5px;
+      width: 280px;
+      border: #bc9c56 solid 2px;
+      border-radius: 5px;
+    }
+    & span {
+      font-size: 12px;
+      font-weight: 200;
+    }
+
+    & button {
+      margin-top: 5px;
+      padding: 5px 10px;
+      background: #bc9c56;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+
+      &:hover {
+        background: #c7b690;
+      }
+    }
+  }
+}

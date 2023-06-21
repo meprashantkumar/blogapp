@@ -1,0 +1,47 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  box-shadow: 0px 15px 10px -15px #c6b7b7;
+  align-items: center;
+  padding: 15px 82px;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+
+  @media (max-width: 760px) {
+    padding: 15px;
+  }
+
+  .logo {
+    & img {
+      width: 200px;
+
+      @media (max-width: 760px) {
+        width: 150px;
+      }
+    }
+  }
+
+  & ul {
+    display: flex;
+
+    & li {
+      margin-left: 10px;
+
+      & a {
+        color: #bc9c56;
+        transition: 0.5s;
+        font-size: 20px;
+
+        @media (max-width: 760px) {
+          font-size: 15px;
+        }
+
+        &:hover {
+          color: #712222;
+        }
+      }
+    }
+  }
+}

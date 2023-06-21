@@ -1,0 +1,45 @@
+.account {
+  padding: 80px;
+  min-height: 76vh;
+
+  @media (max-width: 760px) {
+    padding: 10px;
+  }
+
+  .content {
+    background: white;
+    width: 500px;
+    margin: 60px auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (max-width: 760px) {
+      width: 300px;
+    }
+
+    & span {
+      display: flex;
+      margin-top: 20px;
+
+      & p {
+        color: #bc9c56;
+      }
+    }
+    & button {
+      background: #bc9c56;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+
+      &:hover {
+        background: #dabd7f;
+      }
+    }
+  }
+}
