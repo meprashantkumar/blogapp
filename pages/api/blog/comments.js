@@ -9,13 +9,6 @@ async function handler(req, res) {
     try {
       await connectDb();
 
-      const user = await checkAuth(req);
-
-      if (!user)
-        return res.status(403).json({
-          message: "Please Login",
-        });
-
       const { id } = req.query;
       const blog = await Blog.findById(id);
 
