@@ -9,15 +9,31 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import Loading from "../components/Loading/Loading";
 
+const categories = [
+  "Study",
+  "Sports",
+  "Politics",
+  "Entertainment",
+  "Technology",
+  "Food",
+  "Business",
+  "Travel",
+  "Health ",
+];
+
 function Blogs() {
   const [show, setShow] = useState(false);
   const [blogs, setBlogs] = useState({});
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState("");
 
-  async function fetchblog() {
+  async function fetchblog(search, category) {
     setLoading(true);
     try {
-      const { data } = await axios.get("/api/blog/all");
+      const { data } = await axios.get(
+        "/api/blog/all?search=" + search + "&category=" + category
+      );
 
       setLoading(false);
 
@@ -29,24 +45,44 @@ function Blogs() {
   }
 
   useEffect(() => {
-    fetchblog();
-  }, []);
+    fetchblog(search, category);
+  }, [search, category]);
 
   const { user } = useContext(Context);
   return (
     <div>
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className="blogs">
-          {show && <Modal setShow={setShow} setBlogs={setBlogs} />}
-          <div className="top">
-            <h1 className="heading">Blogs</h1>
-            {user && user._id && (
-              <button onClick={() => setShow(true)}>+ Add Blog</button>
-            )}
-          </div>
+      <div className="blogs">
+        {show && <Modal setShow={setShow} setBlogs={setBlogs} />}
+        <div className="top">
+          <h1 className="heading">Blogs</h1>
+          {user && user._id && (
+            <button onClick={() => setShow(true)}>+ Add Blog</button>
+          )}
+        </div>
 
+        <form>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search"
+          />
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">Search With Category</option>
+            {categories.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </form>
+
+        {loading ? (
+          <Loading />
+        ) : (
           <div className="blogContainer">
             {blogs && blogs.length > 0 ? (
               blogs.map((i) => (
@@ -56,8 +92,8 @@ function Blogs() {
               <p>No Blogs Yet</p>
             )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
