@@ -7,7 +7,20 @@ async function handler(req, res) {
   if (method === "GET") {
     try {
       await connectDb();
-      const blogs = await Blog.find();
+
+      const search = req.query.search || "";
+      const category = req.query.category || "";
+
+      const blogs = await Blog.find({
+        title: {
+          $regex: search,
+          $options: "i",
+        },
+        category: {
+          $regex: category,
+          $options: "i",
+        },
+      });
 
       res.json({
         blogs: blogs.reverse(),
