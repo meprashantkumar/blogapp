@@ -1,9 +1,13 @@
 .blogs {
   padding: 95px;
 
-  & form {
+  .search {
     width: 300px;
     margin: auto;
+
+    @media (max-width: 760px) {
+      width: 180px;
+    }
 
     & input {
       width: 280px;
@@ -15,7 +19,7 @@
       margin-bottom: 10px;
 
       @media (max-width: 760px) {
-        width: 230px;
+        width: 150px;
       }
     }
     & select {
@@ -27,7 +31,7 @@
       border-radius: 4px;
 
       @media (max-width: 760px) {
-        width: 230px;
+        width: 150px;
       }
     }
   }
