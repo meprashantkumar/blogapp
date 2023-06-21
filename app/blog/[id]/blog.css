@@ -122,6 +122,10 @@
       width: 280px;
       border: #bc9c56 solid 2px;
       border-radius: 5px;
+
+      @media (max-width: 760px) {
+        width: 200px;
+      }
     }
 
     & button {
