@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import { AiOutlineComment } from "react-icons/ai";
 import { toast } from "react-hot-toast";
+import Loading from "@/app/components/Loading/Loading";
 
 function Blog() {
   const params = useParams();
@@ -12,13 +13,16 @@ function Blog() {
   const [blog, setBlog] = useState({});
 
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function fetchblog() {
+    setLoading(true);
     try {
       const { data } = await axios.get("/api/blog/blog?id=" + params.id);
-
+      setLoading(false);
       await setBlog(data.blog);
     } catch (error) {
+      setLoading(false);
       console.log(error.message);
     }
   }
@@ -27,29 +31,35 @@ function Blog() {
     fetchblog();
   }, []);
   return (
-    <div className="containerblog">
-      <h1>{blog.title}</h1>
-      {blog && (
-        <div className="blogPage">
-          {show && <CommentModal setShow={setShow} />}
-          <div className="left">
-            <img src={blog.image} alt="" />
-            <p>{blog.description}</p>
-            <p>By - {blog.ownername}</p>
-            <button onClick={() => setShow(true)}>
-              <span>
-                <AiOutlineComment />
-              </span>{" "}
-              comments
-            </button>
-          </div>
-          <div
-            dangerouslySetInnerHTML={{ __html: blog.blog }}
-            className="right"
-          ></div>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="containerblog">
+          <h1>{blog.title}</h1>
+          {blog && (
+            <div className="blogPage">
+              {show && <CommentModal setShow={setShow} />}
+              <div className="left">
+                <img src={blog.image} alt="" />
+                <p>{blog.description}</p>
+                <p>By - {blog.ownername}</p>
+                <button onClick={() => setShow(true)}>
+                  <span>
+                    <AiOutlineComment />
+                  </span>{" "}
+                  comments
+                </button>
+              </div>
+              <div
+                dangerouslySetInnerHTML={{ __html: blog.blog }}
+                className="right"
+              ></div>
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 }
 
