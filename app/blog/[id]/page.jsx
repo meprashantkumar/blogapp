@@ -1,11 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./blog.css";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { AiOutlineComment } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import Loading from "@/app/components/Loading/Loading";
+import { Context } from "@/app/providers";
 
 function Blog() {
   const params = useParams();
@@ -69,6 +70,8 @@ function CommentModal({ setShow }) {
   const [comments, setComments] = useState("");
   const params = useParams();
   const [comment, setComment] = useState("");
+
+  const { user } = useContext(Context);
 
   async function fetchComments() {
     try {
@@ -137,16 +140,18 @@ function CommentModal({ setShow }) {
           <h1>Comments</h1>
           <button onClick={() => setShow(false)}>X</button>
         </div>
-        <form onSubmit={submitHandler}>
-          <input
-            type="text"
-            placeholder="Add Comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            required
-          />
-          <button>Add +</button>
-        </form>
+        {user && user._id && (
+          <form onSubmit={submitHandler}>
+            <input
+              type="text"
+              placeholder="Add Comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              required
+            />
+            <button>Add +</button>
+          </form>
+        )}
 
         <div className="comments">
           {comments && comments.length > 0 ? (
