@@ -1,6 +1,37 @@
 .blogs {
   padding: 95px;
 
+  & form {
+    width: 300px;
+    margin: auto;
+
+    & input {
+      width: 280px;
+      margin: auto;
+      padding: 4px;
+      text-align: center;
+      border: #bc9c56 solid 2px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+
+      @media (max-width: 760px) {
+        width: 230px;
+      }
+    }
+    & select {
+      width: 280px;
+      margin: auto;
+      padding: 4px;
+      text-align: center;
+      border: #bc9c56 solid 2px;
+      border-radius: 4px;
+
+      @media (max-width: 760px) {
+        width: 230px;
+      }
+    }
+  }
+
   .top {
     display: flex;
     justify-content: space-between;
