@@ -60,7 +60,7 @@ function Blogs() {
           )}
         </div>
 
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <input
             type="text"
             value={search}
