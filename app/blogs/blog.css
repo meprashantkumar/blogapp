@@ -108,4 +108,29 @@
       }
     }
   }
+
+  .pagination {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 12px;
+
+    .page {
+      background: #f61f1f;
+      padding: 3px 5px;
+      border-radius: 50%;
+      color: white;
+    }
+
+    & span {
+      padding: 3px;
+      background: #bc9c56;
+      cursor: pointer;
+    }
+  }
+
+  .notactive {
+    background: #cfc0a0;
+    padding: 3px;
+  }
 }
