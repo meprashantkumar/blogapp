@@ -123,7 +123,7 @@ function Blogs({ searchParams }) {
                 <p>No Blogs Yet</p>
               )}
             </div>
-            <div className="pagination">
+            {totalPage !== 1 && <div className="pagination">
               {page && page > 1 ? (
                 <span onClick={decrease}>{"<<"}</span>
               ) : (
@@ -135,7 +135,7 @@ function Blogs({ searchParams }) {
               ) : (
                 <p className="notactive">{">>"}</p>
               )}
-            </div>
+            </div>}
           </>
         )}
       </div>
