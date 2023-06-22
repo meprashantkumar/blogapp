@@ -21,18 +21,36 @@ const categories = [
   "Health ",
 ];
 
-function Blogs() {
+function Blogs({ searchParams }) {
   const [show, setShow] = useState(false);
   const [blogs, setBlogs] = useState({});
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("");
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState("");
 
-  async function fetchblog(search, category) {
+  const size = 4;
+
+  async function fetchblog(search, category, page) {
     setLoading(true);
+    {
+      const { data } = await axios.get("/api/blog/all");
+
+      setLoading(false);
+
+      setTotal(data.blogs.length);
+    }
     try {
       const { data } = await axios.get(
-        "/api/blog/all?search=" + search + "&category=" + category
+        "/api/blog/all?search=" +
+          search +
+          "&category=" +
+          category +
+          "&page=" +
+          page +
+          "&size=" +
+          size
       );
 
       setLoading(false);
@@ -44,9 +62,20 @@ function Blogs() {
     }
   }
 
+  const totalPage = Math.ceil(total / 4);
+
+  console.log(totalPage);
+
+  function increase() {
+    setPage(page + 1);
+  }
+  function decrease() {
+    setPage(page - 1);
+  }
+
   useEffect(() => {
-    fetchblog(search, category);
-  }, [search, category]);
+    fetchblog(search, category, page);
+  }, [search, category, page]);
 
   const { user } = useContext(Context);
   return (
@@ -66,7 +95,7 @@ function Blogs() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search"
-          />{" "}
+          />
           <br />
           <select
             value={category}
@@ -84,15 +113,30 @@ function Blogs() {
         {loading ? (
           <Loading />
         ) : (
-          <div className="blogContainer">
-            {blogs && blogs.length > 0 ? (
-              blogs.map((i) => (
-                <Blog user={user} key={i._id} blog={i} setBlogs={setBlogs} />
-              ))
-            ) : (
-              <p>No Blogs Yet</p>
-            )}
-          </div>
+          <>
+            <div className="blogContainer">
+              {blogs && blogs.length > 0 ? (
+                blogs.map((i) => (
+                  <Blog user={user} key={i._id} blog={i} setBlogs={setBlogs} />
+                ))
+              ) : (
+                <p>No Blogs Yet</p>
+              )}
+            </div>
+            <div className="pagination">
+              {page && page > 1 ? (
+                <span onClick={decrease}>{"<<"}</span>
+              ) : (
+                <p className="notactive">{"<<"}</p>
+              )}
+              <div className="page">{page}</div>
+              {totalPage && totalPage > page ? (
+                <span onClick={increase}>{">>"}</span>
+              ) : (
+                <p className="notactive">{">>"}</p>
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>
