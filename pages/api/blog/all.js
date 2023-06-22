@@ -11,6 +11,13 @@ async function handler(req, res) {
       const search = req.query.search || "";
       const category = req.query.category || "";
 
+      const page = parseInt(req.query.page);
+      const size = parseInt(req.query.size);
+
+      const total = await Blog.countDocuments();
+
+      const skip = (page - 1) * size;
+
       const blogs = await Blog.find({
         title: {
           $regex: search,
@@ -20,10 +27,16 @@ async function handler(req, res) {
           $regex: category,
           $options: "i",
         },
-      });
+      })
+        .skip(skip)
+        .limit(size)
+        .sort("-createdAt");
 
       res.json({
-        blogs: blogs.reverse(),
+        blogs: blogs,
+        total,
+        page,
+        size,
       });
     } catch (error) {
       res.status(500).json({
