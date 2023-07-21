@@ -16,6 +16,11 @@ async function handler(req, res) {
           message: "Please Login",
         });
 
+      if (user.role !== "admin")
+        return res.status(403).json({
+          message: "You are not Admin",
+        });
+
       const { title, description, category, blog, image } = req.body;
 
       if (!title || !description || !category || !blog)
