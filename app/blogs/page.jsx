@@ -84,7 +84,7 @@ function Blogs({ searchParams }) {
         {show && <Modal setShow={setShow} setBlogs={setBlogs} />}
         <div className="top">
           <h1 className="heading">Blogs</h1>
-          {user && user._id && (
+          {user && user.role === "admin" && (
             <button onClick={() => setShow(true)}>+ Add Blog</button>
           )}
         </div>
@@ -123,19 +123,21 @@ function Blogs({ searchParams }) {
                 <p>No Blogs Yet</p>
               )}
             </div>
-            {totalPage !== 1 && <div className="pagination">
-              {page && page > 1 ? (
-                <span onClick={decrease}>{"<<"}</span>
-              ) : (
-                <p className="notactive">{"<<"}</p>
-              )}
-              <div className="page">{page}</div>
-              {totalPage && totalPage > page ? (
-                <span onClick={increase}>{">>"}</span>
-              ) : (
-                <p className="notactive">{">>"}</p>
-              )}
-            </div>}
+            {totalPage !== 1 && (
+              <div className="pagination">
+                {page && page > 1 ? (
+                  <span onClick={decrease}>{"<<"}</span>
+                ) : (
+                  <p className="notactive">{"<<"}</p>
+                )}
+                <div className="page">{page}</div>
+                {totalPage && totalPage > page ? (
+                  <span onClick={increase}>{">>"}</span>
+                ) : (
+                  <p className="notactive">{">>"}</p>
+                )}
+              </div>
+            )}
           </>
         )}
       </div>
