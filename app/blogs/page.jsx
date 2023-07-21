@@ -30,7 +30,7 @@ function Blogs({ searchParams }) {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState("");
 
-  const size = 4;
+  const size = 8;
 
   async function fetchblog(search, category, page) {
     setLoading(true);
