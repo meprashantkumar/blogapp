@@ -62,7 +62,7 @@ function Blogs({ searchParams }) {
     }
   }
 
-  const totalPage = Math.ceil(total / 4);
+  const totalPage = Math.ceil(total / 8);
 
   console.log(totalPage);
 
