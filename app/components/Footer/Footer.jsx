@@ -16,7 +16,7 @@ function Footer() {
         </div>
 
         <div className="mid">
-          <span>Tel 123-456-7890</span>
+          <span>Tel 82350xxxxx</span>
           <br />
           <span>Email info@mysite.com</span>
           <br />
@@ -43,7 +43,7 @@ function Footer() {
         </div>
       </div>
       <div className="bottom">
-        © 2023 by Company Name. Proudly created by Prashant Kumar Chaturvedi
+        © 2023 by The Reading Retreat. Proudly created by Prashant Kumar Chaturvedi
       </div>
     </footer>
   );
