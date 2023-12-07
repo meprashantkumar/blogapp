@@ -116,10 +116,13 @@
     margin-top: 12px;
 
     .page {
-      background: #f61f1f;
-      padding: 3px 5px;
-      border-radius: 50%;
-      color: white;
+      border: solid 1px black;
+      padding: 2px 7px;
+      cursor: pointer;
+    }
+
+    .active {
+      background-color: gray;
     }
 
     & span {
@@ -130,7 +133,6 @@
   }
 
   .notactive {
-    background: #cfc0a0;
-    padding: 3px;
+    opacity: 0;
   }
 }
