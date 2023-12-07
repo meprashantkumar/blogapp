@@ -43,14 +43,7 @@ function Blogs({ searchParams }) {
     }
     try {
       const { data } = await axios.get(
-        "/api/blog/all?search=" +
-          search +
-          "&category=" +
-          category +
-          "&page=" +
-          page +
-          "&size=" +
-          size
+        "/api/blog/all?search=" + search + "&category=" + category
       );
 
       setLoading(false);
@@ -62,9 +55,7 @@ function Blogs({ searchParams }) {
     }
   }
 
-  const totalPage = Math.ceil(total / 8);
-
-  console.log(totalPage);
+  const totalPage = Math.ceil(total / 4);
 
   function increase() {
     setPage(page + 1);
@@ -74,8 +65,8 @@ function Blogs({ searchParams }) {
   }
 
   useEffect(() => {
-    fetchblog(search, category, page);
-  }, [search, category, page]);
+    fetchblog(search, category);
+  }, [search, category]);
 
   const { user } = useContext(Context);
   return (
@@ -116,9 +107,16 @@ function Blogs({ searchParams }) {
           <>
             <div className="blogContainer">
               {blogs && blogs.length > 0 ? (
-                blogs.map((i) => (
-                  <Blog user={user} key={i._id} blog={i} setBlogs={setBlogs} />
-                ))
+                blogs
+                  .slice(4 * (page - 1), 4 * page)
+                  .map((i) => (
+                    <Blog
+                      user={user}
+                      key={i._id}
+                      blog={i}
+                      setBlogs={setBlogs}
+                    />
+                  ))
               ) : (
                 <p>No Blogs Yet</p>
               )}
@@ -130,7 +128,16 @@ function Blogs({ searchParams }) {
                 ) : (
                   <p className="notactive">{"<<"}</p>
                 )}
-                <div className="page">{page}</div>
+                {[...Array(totalPage)].map((_, i) => (
+                  <div
+                    onClick={() => setPage(i + 1)}
+                    key={i}
+                    className={`page ${page === i + 1 ? "active" : ""}`}
+                  >
+                    {i + 1}
+                  </div>
+                ))}
+
                 {totalPage && totalPage > page ? (
                   <span onClick={increase}>{">>"}</span>
                 ) : (
